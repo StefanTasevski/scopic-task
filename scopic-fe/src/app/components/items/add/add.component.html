@@ -1,0 +1,22 @@
+<div class="w3-container" *ngIf="bookAddForm">
+	<form class="w3-container" [formGroup]="bookAddForm" (ngSubmit)="register()">
+
+		<label class="w3-text-blue"><b>Name</b></label>
+		<input class="w3-input w3-border" type="text" formControlName="name">
+		<div class="w3-panel w3-red"  *ngIf="bookAddForm.controls.name.invalid && (bookAddForm.controls.name.dirty || bookAddForm.controls.name.touched)">Please enter 3 to 50 characters</div> 
+
+		<label class="w3-text-blue"><b>Author</b></label>
+		<input class="w3-input w3-border" type="text" formControlName="author">
+		<div class="w3-panel w3-red"  *ngIf="bookAddForm.controls.author.invalid && (bookAddForm.controls.author.dirty || bookAddForm.controls.author.touched)">Please enter  3 to 50 characters </div> 
+
+		<label class="w3-text-blue"><b>Year</b></label>
+		<input class="w3-input w3-border" type="number" formControlName="year">
+
+		<label class="w3-text-blue"><b>Tags</b></label>
+		<input class="w3-input w3-border" type="text" formControlName="tags">
+		
+		<br>
+		<button class="w3-btn w3-blue" type="submit" [disabled]="!bookAddForm.valid">Submit</button>
+
+	</form>
+</div>

@@ -1,0 +1,30 @@
+<div class="w3-container" *ngIf="bookListData">
+
+	<span>Search : <input class="" type="text" [(ngModel)]='filterData'></span>
+
+	<h2>{{errorMessage}}</h2>
+
+	<div class="w3-panel w3-green" *ngIf="(bookListData | filter:filterData).length === 0">
+		<p>No books found <span *ngIf="filterData"> with search "{{filterData}}"</span> </p>
+	</div>
+	<div class="w3-panel w3-light-grey w3-padding-16 w3-card-2" *ngIf="(bookListData | filter:filterData | filter:filterData).length != 0">
+		<table class="w3-table w3-striped w3-bordered">
+			<tr>
+				<th>Name</th>
+				<th>Author</th>
+				<th>Year</th>
+				<th>Tags</th>
+				<th>Update</th>
+				<th>Delete</th>
+			</tr>
+			<tr *ngFor="let book of bookListData | filter:filterData; index as i;">
+				<td class="pointer">{{book.name}} </td>
+				<td class="pointer">{{book.author}}</td>
+				<td class="pointer">{{book.year}}</td>
+				<td class="pointer">{{book.tags}}</td>
+				<td><button [routerLink]="['update', book.id]" [queryParams]="{record:book | json }" class="w3-button w3-blue">Update</button></td>
+				<td><button (click)="deleteBook(book.id);" class="w3-button w3-red">Delete</button></td>
+			</tr>
+		</table>
+	</div>
+</div>

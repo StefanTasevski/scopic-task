@@ -1,0 +1,16 @@
+<div class="w3-container align-center login-card">
+	<form [formGroup]="loginForm" (ngSubmit)="login()">
+
+		<label class="w3-text-blue"><b>Email</b></label>
+		<input class="w3-input w3-border" type="email" formControlName="email">
+	
+		<label class="w3-text-blue"><b>Password</b></label>
+		<input class="w3-input w3-border" type="password" formControlName="password">
+		<br>
+		<button class="w3-btn w3-blue" type="submit" [disabled]="!loginForm.valid">Login</button>
+	</form>
+	<div class="w3-panel w3-blue-gray">
+		<p>Credentials : admin Password: admin</p>
+		<p>Credentials : user Password: user</p>
+	</div> 
+</div>
