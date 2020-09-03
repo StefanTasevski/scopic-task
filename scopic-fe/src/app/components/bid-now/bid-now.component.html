@@ -1,0 +1,49 @@
+<div class="text" *ngIf="!hasStarted">
+    <h1>The Auction For This Item Has Not Started Yet</h1>
+</div>
+<div class="text" *ngIf="!hasNotFinished">
+    <h1>The Auction For This Item Has Finished</h1>
+</div>
+<div *ngIf="hasStarted && hasNotFinished" class="text">
+    <h1>Counter until finish: {{duration}}</h1>
+</div>
+<div *ngIf="hasStarted && hasNotFinished" class="flex-container" >
+    <div class="container" *ngIf="itemAddForm">
+        <form class="w3-container" [formGroup]="itemAddForm" (ngSubmit)="register()">
+            <mat-form-field hintLabel="It should be more than the max bid." class="field" appearance="fill">
+                <mat-label>Price</mat-label>
+                <input matInput #input type="text" formControlName="price">
+            </mat-form-field>
+            <br>
+            <mat-form-field class="field" appearance="fill">
+                <mat-label>Name</mat-label>
+                <input matInput #input type="text" formControlName="bidder" readonly>
+            </mat-form-field>
+            <br>
+            <button mat-button type="submit" [disabled]="!itemAddForm.valid">Submit</button>
+        </form>
+      </div>
+    
+      <div class="mat-elevation-z8 container">
+        <mat-table [dataSource]="dataS">
+      
+          <ng-container matColumnDef="bidder">
+            <mat-header-cell *matHeaderCellDef> Bidder </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.bidder}} </mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="price">
+            <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.price}} </mat-cell>
+          </ng-container>
+    
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    
+        </mat-table>
+    
+        <mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+    
+    </div>
+        
+    </div>

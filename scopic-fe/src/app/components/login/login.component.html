@@ -1,16 +1,20 @@
-<div class="w3-container align-center login-card">
-	<form [formGroup]="loginForm" (ngSubmit)="login()">
 
-		<label class="w3-text-blue"><b>Email</b></label>
-		<input class="w3-input w3-border" type="email" formControlName="email">
-	
-		<label class="w3-text-blue"><b>Password</b></label>
-		<input class="w3-input w3-border" type="password" formControlName="password">
+<div class="container">
+	<form class="w3-container" [formGroup]="loginForm" (ngSubmit)="login()">
+		<mat-form-field class="field" appearance="fill">
+			<mat-label>Username</mat-label>
+			<input matInput type="text" formControlName="email">
+		</mat-form-field>
 		<br>
-		<button class="w3-btn w3-blue" type="submit" [disabled]="!loginForm.valid">Login</button>
+		<mat-form-field class="field" appearance="fill">
+			<mat-label>Password</mat-label>
+			<input matInput type="password" formControlName="password">
+		</mat-form-field>
+		<br>
+		<button mat-button type="submit" [disabled]="!loginForm.valid">Submit</button>
+		<div class="margin">
+			<p>Credentials : admin:admin</p>
+			<p>Credentials : user:user</p>
+		</div>
 	</form>
-	<div class="w3-panel w3-blue-gray">
-		<p>Credentials : admin Password: admin</p>
-		<p>Credentials : user Password: user</p>
-	</div> 
-</div>
+  </div>

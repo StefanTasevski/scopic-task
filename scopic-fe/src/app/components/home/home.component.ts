@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Routes ,Router} from '@angular/router';
 
-import { bookListComponent } from '../book/list/list.component';
-import { BookAddComponent } from '../book/add/add.component';
+import { ItemListComponent } from '../items/list/list.component';
+import { ItemAddComponent } from '../items/add/add.component';
+import { BidNowComponent } from '../bid-now/bid-now.component';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    let res = JSON.parse(localStorage.getItem('userData'));
+    let res = JSON.parse(sessionStorage.getItem('userData'));
     this.user = res["email"];
   }
 
@@ -30,7 +31,7 @@ export class HomeComponent implements OnInit {
   }
 
   logOut(){
-    localStorage.removeItem('userData');
+    sessionStorage.removeItem('userData');
     this.router.navigate(['/login']);
   }
 }
@@ -38,14 +39,18 @@ export class HomeComponent implements OnInit {
 export const homeChildRoutes : Routes = [
 {
   path: '',
-  component: bookListComponent
+  component: ItemListComponent
 },
 {
   path: 'add',
-  component: BookAddComponent
+  component: ItemAddComponent
 },
 {
   path: 'update/:id',
-  component: BookAddComponent
+  component: ItemAddComponent
+},
+{
+  path: 'bid/:id',
+  component: BidNowComponent
 }
 ];

@@ -1,3 +1,13 @@
-td{
-    vertical-align: middle;
+table {
+  width: 100%;
+}
+
+.mt-2 {
+    margin-top: 20px;
+}
+
+.fab {
+    font-size: 30px;
+    margin: 10px;
+    float: right;
 }

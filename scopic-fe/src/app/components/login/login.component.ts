@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { RouterModule, Routes, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { UserService } from '../../services/user/user.service';
 
 @Component({
@@ -12,13 +12,13 @@ export class LoginComponent implements OnInit {
 	loginForm: FormGroup;
 	constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService) {
 		this.loginForm = this.formBuilder.group({
-			email: [''],
-			password: ['']
+			email: ['', [Validators.required]],
+			password: ['', [Validators.required]]
 		});
 	}
 
 	ngOnInit() {
-		if (localStorage.getItem('userData')) {
+		if (sessionStorage.getItem('userData')) {
 			this.router.navigate(['/']);
 		}
 	}
@@ -30,8 +30,14 @@ export class LoginComponent implements OnInit {
 
 	success(data) {
 		if (data.code === 200) {
-			localStorage.setItem('userData', JSON.stringify(data.data));
-			this.router.navigate(['/']);
+			sessionStorage.setItem('userData', JSON.stringify(data.data));
+			this.router.navigate(['/home']);
+		}
+		else {
+			this.loginForm = this.formBuilder.group({
+				email: ['', [Validators.required]],
+				password: ['', [Validators.required]]
+			});
 		}
 	}
 

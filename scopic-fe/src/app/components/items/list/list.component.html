@@ -1,30 +1,46 @@
-<div class="w3-container" *ngIf="bookListData">
 
-	<span>Search : <input class="" type="text" [(ngModel)]='filterData'></span>
+<div class="w3-container margin">
 
-	<h2>{{errorMessage}}</h2>
+	<mat-form-field class="mt-2">
+		<input (keyup)="applyFilter($event.target.value)" matInput placeholder="Search">
+	</mat-form-field>
+		<div class="mat-elevation-z8">
+			<mat-table [dataSource]="dataS">
+		  
+			  <ng-container matColumnDef="name" class="name">
+				<mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+				<mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+			  </ng-container>
+		  
+			  <ng-container matColumnDef="description" class="description">
+				<mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+				<mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+			  </ng-container>
 
-	<div class="w3-panel w3-green" *ngIf="(bookListData | filter:filterData).length === 0">
-		<p>No books found <span *ngIf="filterData"> with search "{{filterData}}"</span> </p>
-	</div>
-	<div class="w3-panel w3-light-grey w3-padding-16 w3-card-2" *ngIf="(bookListData | filter:filterData | filter:filterData).length != 0">
-		<table class="w3-table w3-striped w3-bordered">
-			<tr>
-				<th>Name</th>
-				<th>Author</th>
-				<th>Year</th>
-				<th>Tags</th>
-				<th>Update</th>
-				<th>Delete</th>
-			</tr>
-			<tr *ngFor="let book of bookListData | filter:filterData; index as i;">
-				<td class="pointer">{{book.name}} </td>
-				<td class="pointer">{{book.author}}</td>
-				<td class="pointer">{{book.year}}</td>
-				<td class="pointer">{{book.tags}}</td>
-				<td><button [routerLink]="['update', book.id]" [queryParams]="{record:book | json }" class="w3-button w3-blue">Update</button></td>
-				<td><button (click)="deleteBook(book.id);" class="w3-button w3-red">Delete</button></td>
-			</tr>
-		</table>
-	</div>
+			  <ng-container matColumnDef="price" class="buttons">
+				<mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+				<mat-cell *matCellDef="let element"> {{element.maxBid}} </mat-cell>
+			  </ng-container>
+
+			  <ng-container matColumnDef="details" class="buttons">
+				<mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+				<mat-cell *matCellDef="let element; let j = index;">
+					<button *ngIf="role=='ADMIN'" mat-button [routerLink]="['update', element.id]" >Update</button>
+					<button *ngIf="role=='ADMIN'" mat-button (click)="deleteItem(element.id, j);">Delete</button>
+					<button *ngIf="role=='USER'" mat-button [routerLink]="['bid', element.id]">Bid Now</button>
+				</mat-cell>
+			  </ng-container>
+
+			  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+			  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+			</mat-table>
+
+			<mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+		
+		</div>
+
+		<div *ngIf="role=='ADMIN'">
+			<button class="fab" mat-fab routerLink="/add">+</button>
+		</div>
 </div>

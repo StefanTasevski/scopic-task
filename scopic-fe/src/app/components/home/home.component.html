@@ -1,6 +1,9 @@
-<div class="w3-container">
-	<div class="w3-panel w3-round-small w3-teal">
-		<h3>Book List for {{user}} <button (click)="logOut()" class="w3-button w3-black custom-button">Logout</button> <button routerLink="/add" class="w3-button w3-black custom-button">Add New Book</button></h3>
-	</div>
+<div>
+	<mat-toolbar color="primary" class="navbar">
+		<div>Auction</div>
+		<div>
+			<span><button mat-button (click)="logOut()">Logout</button></span>
+		</div>
+	</mat-toolbar>
 	<router-outlet></router-outlet>
 </div>

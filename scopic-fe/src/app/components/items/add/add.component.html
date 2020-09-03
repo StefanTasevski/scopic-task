@@ -1,22 +1,53 @@
-<div class="w3-container" *ngIf="bookAddForm">
-	<form class="w3-container" [formGroup]="bookAddForm" (ngSubmit)="register()">
 
-		<label class="w3-text-blue"><b>Name</b></label>
-		<input class="w3-input w3-border" type="text" formControlName="name">
-		<div class="w3-panel w3-red"  *ngIf="bookAddForm.controls.name.invalid && (bookAddForm.controls.name.dirty || bookAddForm.controls.name.touched)">Please enter 3 to 50 characters</div> 
-
-		<label class="w3-text-blue"><b>Author</b></label>
-		<input class="w3-input w3-border" type="text" formControlName="author">
-		<div class="w3-panel w3-red"  *ngIf="bookAddForm.controls.author.invalid && (bookAddForm.controls.author.dirty || bookAddForm.controls.author.touched)">Please enter  3 to 50 characters </div> 
-
-		<label class="w3-text-blue"><b>Year</b></label>
-		<input class="w3-input w3-border" type="number" formControlName="year">
-
-		<label class="w3-text-blue"><b>Tags</b></label>
-		<input class="w3-input w3-border" type="text" formControlName="tags">
-		
+<div class="flex-container" >
+<div class="container" *ngIf="itemAddForm">
+	<form class="w3-container" [formGroup]="itemAddForm" (ngSubmit)="register()">
+		<mat-form-field hintLabel="Max 255 characters" class="field" appearance="fill">
+			<mat-label>Name</mat-label>
+			<input matInput #input type="text" formControlName="name">
+			<mat-hint align=end>{{input.value?.length || 0}}/255</mat-hint>
+		</mat-form-field>
 		<br>
-		<button class="w3-btn w3-blue" type="submit" [disabled]="!bookAddForm.valid">Submit</button>
-
+		<mat-form-field hintLabel="Max 255 characters"  class="field" appearance="fill">
+			<mat-label>Description</mat-label>
+			<input matInput #inputDesc formControlName="description">
+			<mat-hint align=end>{{inputDesc.value?.length || 0}}/255</mat-hint>
+		</mat-form-field>
+		<br>
+		<mat-form-field class="field" appearance="fill">
+			<mat-label>Start</mat-label>
+			<input matInput type="datetime-local" formControlName="start">
+		</mat-form-field>
+		<br>
+		<mat-form-field class="field" appearance="fill">
+			<mat-label>Finish</mat-label>
+			<input matInput type="datetime-local" formControlName="finish">
+		</mat-form-field>
+		<br>
+		<button mat-button type="submit" [disabled]="!itemAddForm.valid">Submit</button>
 	</form>
+  </div>
+
+  <div *ngIf="index!=null" class="mat-elevation-z8 container">
+	<mat-table [dataSource]="dataS">
+  
+	  <ng-container matColumnDef="bidder">
+		<mat-header-cell *matHeaderCellDef> Bidder </mat-header-cell>
+		<mat-cell *matCellDef="let element"> {{element.bidder}} </mat-cell>
+	  </ng-container>
+  
+	  <ng-container matColumnDef="price">
+		<mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+		<mat-cell *matCellDef="let element"> {{element.price}} </mat-cell>
+	  </ng-container>
+
+	  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+	  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+	</mat-table>
+
+	<mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+
+</div>
+	
 </div>
